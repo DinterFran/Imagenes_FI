@@ -1,12 +1,28 @@
 
  clc; close all; clear all
 
- I=imread('BANKVID.TIF');
+ I=imread('FFTPRINT.TIF');
 
- ilu=iluminar(I);
+ Z=promedio(I);
 
 subplot(1,2,1), imshow(I)
-subplot(1,2,2), imshow(ilu)
+subplot(1,2,2), imshow(uint8(Z))
+
+function y3 = promedio(x)
+x = double(x);
+medida=size(x);
+y3=x;
+N=medida(1)-1
+M=medida(2)-1
+for i=2:N
+    for j=2:M       
+        %promo = sum(sum(x(i-1:i+1,j-1:j+1)))/9;
+        promo=(x(i,j) + x(i-1,j) + x(i+1,j) + x(i,j-1) + x(i,j+1))/5;
+        y3(i,j)=fix(promo);
+    end
+end
+        
+end
 
 function y2=iluminar(x)
 medida=size(x);
